@@ -1,23 +1,46 @@
 # 🕺 Disco Checkers 💃
 
-A terminal-based checkers game with vibrant visuals and a CPU opponent.
+A high-fidelity, dual-perspective checkers game for the terminal. Features vibrant "disco" visuals, a "One-Touch" input system, and an immutable state-machine core.
 
-## How to Play
+## 🚀 Getting Started
 
-1. Run the game:
-   ```bash
-   python3 main.py
-   ```
-2. Choose players: `h` for human, `c` for CPU.
-3. Movement: Enter coordinates as `row,col row,col`.
-   - Example: `5,2 4,3` moves a piece from (5, 2) to (4, 3).
-   - Coordinates are 0-indexed (0 to 7).
+### Prerequisites
+- Python 3.7+
+- A terminal with Unicode and ANSI color support.
 
-## Features
+### Running the Game
+```bash
+python3 main.py
+```
 
-- **Disco Graphics**: Vibrant ANSI colors and flashing backgrounds.
-- **Kings**: "Sparkling" pieces that can move in all directions.
-- **CPU Opponent**: A basic AI that prioritizes jumps.
-- **Rules**: Standard checkers (forced jumps, double jumps supported).
+## 🎮 How to Play
 
-Enjoy the disco vibe! 🕺✨
+1. **Player Selection**: Choose whether Red (Player 1) and Black (Player 2) are Humans or CPU.
+2. **Dual Perspective**: The screen displays two boards simultaneously—one from Red's view and one from Black's.
+3. **One-Touch Input**: Valid moves are assigned hotkeys (e.g., `1`, `2`, `a`, `b`) displayed directly on the destination squares. Simply press the key to make the move. No `Enter` required!
+4. **Quitting**: Press `q` at any time to exit the game.
+
+## ✨ Disco Features
+
+- **Animated Header**: A cycling rainbow ASCII art title.
+- **Walking Lights**: An animated border of stars surrounding the board.
+- **King Squares**: Squares containing Kings flash with a high-speed "yellow glow" effect.
+- **Sparkle Logic**: Visual elements shift colors dynamically based on a high-frequency time-tick.
+
+## 🛠️ Technical Architecture
+
+The project is built using an **Immutable Core / Imperative Shell** pattern:
+- `models.py`: Defines frozen `dataclass` objects for the `GameState` and `Piece`.
+- `logic.py`: Contains pure functions for move calculation and state transitions.
+- `rendering.py`: Handles the buffered terminal output and Unicode formatting.
+- `main.py`: The imperative entry point that manages the raw TTY state and the event loop.
+
+## 🧪 Testing
+
+The core game logic is thoroughly verified with behavior-based unit tests.
+```bash
+python3 test_logic.py
+```
+
+## 📜 License
+MIT
