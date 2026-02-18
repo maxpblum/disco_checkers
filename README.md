@@ -1,57 +1,54 @@
-# 🕺 Disco Checkers 💃
+# Disco Checkers
 
-**Built entirely through vibe-coding using Gemini CLI with the Gemini 3 Flash model.**
+A checkers game for the terminal implemented in Python. This project was developed using Gemini CLI with the Gemini 3 Flash model.
 
-A high-fidelity, dual-perspective checkers game for the terminal. Features vibrant "disco" visuals, a "One-Touch" hotkey input system, and an immutable state-machine core.
+## Features
 
-## 🚀 Getting Started
+- **Dual View**: Displays the board from both the Red and Black perspectives simultaneously.
+- **Hotkey Input**: Valid moves are mapped to single-character hotkeys ('1'-'9', 'a'-'z') shown on the destination squares.
+- **CPU Opponent**: Option to play against a computer that selects moves at random after a short delay.
+- **Visuals**: ANSI-based terminal rendering with a cycling color header, animated border, and flashing indicators for King pieces.
+- **Terminal Integration**: Uses TTY raw mode for real-time input without requiring the Enter key.
 
-### Prerequisites
+## Technical Structure
+
+The application is structured using an immutable state model and pure logic functions:
+
+- `models.py`: Immutable `dataclass` definitions for `Piece` and `GameState`.
+- `logic.py`: Functions for move generation, multi-jump validation, and state transitions.
+- `rendering.py`: ANSI terminal output management, including centering and truncation.
+- `utils.py`: Helpers for handling character widths and ANSI escape sequences.
+- `main.py`: Entry point that manages the terminal environment and the main event loop.
+
+## Installation and Usage
+
+### Requirements
 - Python 3.7+
-- A terminal with Unicode and ANSI color support.
+- A terminal with ANSI color and Unicode support.
 
 ### Running the Game
 ```bash
 python3 main.py
 ```
 
-## 🎮 How to Play
+### Controls
+- Press the displayed hotkey (e.g., `1`, `a`) to execute a move.
+- Press `q` to exit.
 
-1.  **Player Selection**: Choose whether Red (Player 1) and Black (Player 2) are Humans or CPU.
-2.  **Dual Perspective**: The screen displays two boards simultaneously—one from Red's view and one from Black's.
-3.  **One-Touch Input**: Valid moves are assigned hotkeys (e.g., `1`, `2`, `a`, `b`) displayed directly on the destination squares. Simply press the key to make the move. No `Enter` required!
-4.  **Quitting**: Press `q` at any time to exit the game.
+## Testing
 
-## ✨ Disco Features
+The codebase includes unit tests for the game logic, rendering helpers, and string utilities.
 
--   **Animated Header**: A cycling rainbow ASCII art title.
--   **Walking Lights**: An animated border of stars surrounding the board.
--   **King Squares**: Squares containing Kings flash with a high-speed "yellow glow" effect.
--   **Sparkle Logic**: Visual elements shift colors dynamically based on a high-frequency time-tick.
-
-## 🛠️ Technical Architecture
-
-The project follows an **Immutable Core / Imperative Shell** pattern for high reliability and predictable state transitions:
--   `models.py`: Defines frozen `dataclass` objects for the `GameState` and `Piece`.
--   `logic.py`: Pure functions for move calculation, king promotion, and state transitions.
--   `rendering.py`: High-performance terminal rendering with ANSI-aware layout.
--   `utils.py`: ANSI-aware string utilities for width, centering, and truncation.
--   `main.py`: The imperative entry point managing raw TTY state and the event loop.
-
-## 🧪 Testing
-
-The core game logic, rendering helpers, and utilities are thoroughly verified with an extensive unit test suite.
-
-### Running All Tests
+### Execute all tests
 ```bash
 python3 -m unittest discover
 ```
 
 ### Test Modules
--   `test_logic.py`: Basic game rules and move validation.
--   `test_logic_extended.py`: Advanced scenarios including multi-jumps, king movement, and win conditions.
--   `test_rendering.py`: Verification of visual effects and layout consistency.
--   `test_utils.py`: Validation of ANSI-aware string manipulation.
+- `test_logic.py`: Standard move validation.
+- `test_logic_extended.py`: Multi-jumps, King movement, and win conditions.
+- `test_rendering.py`: Layout and visual effect helpers.
+- `test_utils.py`: ANSI-aware string manipulation.
 
-## 📜 License
+## License
 MIT
