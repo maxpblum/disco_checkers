@@ -2,6 +2,8 @@
 
 A checkers game for the terminal implemented in Python. This project was developed using Gemini CLI with the Gemini 3 Flash model.
 
+![Disco Checkers Gameplay Demo](demo.gif)
+
 ## Features
 
 - **Dual View**: Displays the board from both the Red and Black perspectives simultaneously.
