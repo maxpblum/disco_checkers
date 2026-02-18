@@ -1,7 +1,16 @@
-"""Constants for colors, ASCII art, and game settings."""
+"""
+Constants for colors, ASCII art, and game settings.
+
+This module stores:
+- ANSI color codes for terminal output.
+- ASCII art assets.
+- Input configuration (possible hotkeys).
+"""
 
 class Colors:
-    """ANSI color escape sequences."""
+    """
+    ANSI color escape sequences for terminal styling.
+    """
     RED_FG = "\033[91m"
     BLACK_FG = "\033[30m"
     GRAY_LIGHT = "\033[47m"
@@ -16,6 +25,7 @@ class Colors:
     GREEN_FG = "\033[92m"
     GREEN_BG = "\033[42m"
 
+# Colors used for the sparkling text effect
 SPARKLES_FG = [
     Colors.RED_FG, 
     Colors.MAGENTA_FG, 
@@ -24,8 +34,10 @@ SPARKLES_FG = [
     Colors.WHITE_FG
 ]
 
+# Characters available for move hotkeys (e.g., press '1' to move)
 POSSIBLE_KEYS = "123456789abcdefghijklmnoprstuvwxyz"
 
+# ASCII Art logo for the game header
 ASCII_DISCO = [
     " ___  ___ ___  ___  ___     ___ _  _ ___ ___ _  _ ___ ___ ___ ",
     "|   \|_ _/ __|/ __|/ _ \   / __| || | __/ __| |/ | __| _ \ __|",

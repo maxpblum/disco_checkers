@@ -6,7 +6,7 @@ import sys
 from unittest.mock import patch
 from logic import setup_board, calculate_hotkeys, get_all_available_moves
 from models import GameState
-from rendering import render
+from rendering import render, get_sparkle_fg, get_chase_color
 from utils import visible_len, strip_ansi
 
 class TestRendering(unittest.TestCase):
@@ -53,6 +53,30 @@ class TestRendering(unittest.TestCase):
                 self.assertEqual(vlen, term_w, f"Line {i} should be {term_w} visible chars, but is {vlen}")
         finally:
             sys.stdout = old_stdout
+
+    def test_sparkle_effect(self):
+        """Sparkle effect should change color over time."""
+        # Same position, different time -> different color (eventually)
+        c1 = get_sparkle_fg(0, 0.0)
+        c2 = get_sparkle_fg(0, 0.5)
+        self.assertNotEqual(c1, c2)
+
+        # Same time, different position -> different color (usually)
+        c3 = get_sparkle_fg(0, 0.0)
+        c4 = get_sparkle_fg(1, 0.0)
+        self.assertNotEqual(c3, c4)
+
+    def test_chase_effect(self):
+        """Chase effect should cycle through colors."""
+        # Check that it produces valid ANSI codes
+        c = get_chase_color(0, 0.0)
+        self.assertTrue(c.startswith("\033["))
+        
+        # Check cycling
+        colors = set()
+        for t in range(10):
+            colors.add(get_chase_color(0, t * 0.5))
+        self.assertTrue(len(colors) > 1)
 
 if __name__ == "__main__":
     unittest.main()

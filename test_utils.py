@@ -1,6 +1,6 @@
 """Unit tests for the ANSI-aware string utilities."""
 import unittest
-from utils import strip_ansi, visible_len, ansi_center, ansi_ljust
+from utils import strip_ansi, visible_len, ansi_center, ansi_ljust, ansi_truncate
 
 class TestUtils(unittest.TestCase):
     
@@ -36,6 +36,25 @@ class TestUtils(unittest.TestCase):
         visible_justified = strip_ansi(justified)
         self.assertEqual(len(visible_justified), 4)
         self.assertEqual(visible_justified, "B   ")
+
+    def test_ansi_truncate(self):
+        """Should truncate string to visible width, preserving colors where possible."""
+        colored = "\033[91mHello World\033[0m"
+        truncated = ansi_truncate(colored, 5)
+        # Should be "\033[91mHello"
+        # Note: Depending on implementation, it might not include the reset code if it was after the truncation point.
+        self.assertEqual(strip_ansi(truncated), "Hello")
+        self.assertTrue(truncated.startswith("\033[91m"))
+        
+        # Test with emoji (width 2)
+        emoji_str = "A🔴B"
+        # Truncate at 2. "A" (1) + "🔴" (2) = 3. So it should only return "A".
+        trunc_emoji = ansi_truncate(emoji_str, 2)
+        self.assertEqual(trunc_emoji, "A")
+        
+        # Truncate at 3. Should return "A🔴"
+        trunc_emoji_3 = ansi_truncate(emoji_str, 3)
+        self.assertEqual(trunc_emoji_3, "A🔴")
 
 if __name__ == "__main__":
     unittest.main()
