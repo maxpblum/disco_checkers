@@ -1,7 +1,7 @@
 """Unit tests for the Disco Checkers core logic."""
 import unittest
 from dataclasses import replace
-from logic import setup_board, execute_move, is_valid_pos, get_piece_moves
+from logic import setup_board, execute_move, is_valid_pos, get_piece_moves, get_hotkey_subpos
 from models import Piece, GameState
 
 def create_mock_state(grid, turn='R'):
@@ -20,6 +20,21 @@ def empty_grid():
 
 class TestCheckersLogic(unittest.TestCase):
     
+    def test_hotkey_corner_placement(self):
+        """Hotkey should be placed in the corner nearest the origin, accounting for board flip."""
+        sq_h, sq_w = 3, 6
+        start, end = (5, 2), (4, 3) 
+        
+        # In RED perspective, (5,2) is "below-left" of (4,3).
+        # Nearest corner is Bottom-Left: inner_r=2, inner_c=0.
+        r_sub, c_sub = get_hotkey_subpos(start, end, 'R', sq_h, sq_w)
+        self.assertEqual((r_sub, c_sub), (2, 0))
+        
+        # In BLACK perspective, (5,2) is "above-right" of (4,3).
+        # Nearest corner is Top-Right: inner_r=0, inner_c=5.
+        r_sub, c_sub = get_hotkey_subpos(start, end, 'B', sq_h, sq_w)
+        self.assertEqual((r_sub, c_sub), (0, 5))
+
     def test_initial_board_setup(self):
         """Standard board should have 12 pieces for each side."""
         grid = setup_board()

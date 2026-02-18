@@ -58,6 +58,18 @@ def calculate_hotkeys(moves: List[tuple]) -> Dict[str, tuple]:
     """Maps legal moves to single-character hotkeys for input."""
     return {POSSIBLE_KEYS[i]: moves[i] for i in range(min(len(moves), len(POSSIBLE_KEYS)))}
 
+def get_hotkey_subpos(start: Tuple[int, int], end: Tuple[int, int], orientation: str, sq_h: int, sq_w: int) -> Tuple[int, int]:
+    """Calculates the (inner_r, inner_c) corner in a destination square nearest to the origin."""
+    sr, sc = start
+    er, ec = end
+    if orientation == 'R':
+        ir = 0 if sr < er else sq_h - 1
+        ic = 0 if sc < ec else sq_w - 1
+    else:  # 'B' perspective flips both axes
+        ir = 0 if sr > er else sq_h - 1
+        ic = 0 if sc > ec else sq_w - 1
+    return ir, ic
+
 def execute_move(state: GameState, move: tuple) -> GameState:
     """Transitions game state by applying a move to the board."""
     start, end = move[0], move[1]
