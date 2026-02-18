@@ -1,5 +1,7 @@
 # 🕺 Disco Checkers 💃
 
+**Built entirely through vibe-coding using Gemini CLI with the Gemini 3 Flash model.**
+
 A high-fidelity, dual-perspective checkers game for the terminal. Features vibrant "disco" visuals, a "One-Touch" hotkey input system, and an immutable state-machine core.
 
 ## 🚀 Getting Started
